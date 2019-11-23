@@ -1,0 +1,129 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/game.gd" type="Script" id=1]
+[ext_resource path="res://scripts/slot_generator.gd" type="Script" id=2]
+[ext_resource path="res://scripts/deforester_generator.gd" type="Script" id=3]
+[ext_resource path="res://assets/map/bg_forest.png" type="Texture" id=4]
+[ext_resource path="res://scenes/cactus.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/cactuses_generator.gd" type="Script" id=6]
+[ext_resource path="res://assets/ui/card_slot_2.png" type="Texture" id=7]
+[ext_resource path="res://scenes/card_cactus.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/ui/table.png" type="Texture" id=9]
+[ext_resource path="res://assets/ui/water.png" type="Texture" id=10]
+[ext_resource path="res://scripts/water_generator.gd" type="Script" id=11]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+font_path = "res://font.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+outline_size = 3
+outline_color = Color( 0, 0.623529, 1, 1 )
+use_filter = true
+font_data = SubResource( 1 )
+
+[node name="game" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="slots" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="slot_generator" type="Position2D" parent="slots"]
+script = ExtResource( 2 )
+
+[node name="deforesters" type="Node2D" parent="."]
+
+[node name="deforester_generator" type="Position2D" parent="deforesters"]
+script = ExtResource( 3 )
+
+[node name="deforester_timer" type="Timer" parent="deforesters/deforester_generator"]
+wait_time = 3.0
+autostart = true
+
+[node name="bg_forest" type="Sprite" parent="."]
+scale = Vector2( 2.8, 2.8 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="cactus" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, 200 )
+
+[node name="cactuses" type="Node2D" parent="."]
+
+[node name="cactuses_generator" type="Position2D" parent="cactuses"]
+script = ExtResource( 6 )
+
+[node name="card_slots" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 200, 0 )
+
+[node name="card_slot_1" type="Sprite" parent="card_slots"]
+texture = ExtResource( 7 )
+centered = false
+
+[node name="card_cactus" parent="card_slots/card_slot_1" instance=ExtResource( 8 )]
+
+[node name="card_slot_2" type="Sprite" parent="card_slots"]
+position = Vector2( 74, 0 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="card_slot_3" type="Sprite" parent="card_slots"]
+position = Vector2( 148, 0 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="card_slot_4" type="Sprite" parent="card_slots"]
+position = Vector2( 222, 0 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="card_slot_5" type="Sprite" parent="card_slots"]
+position = Vector2( 296, 0 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="card_slot_6" type="Sprite" parent="card_slots"]
+position = Vector2( 370, 0 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="water_board" type="Node2D" parent="."]
+z_index = 4
+
+[node name="bg" type="Sprite" parent="water_board"]
+self_modulate = Color( 0.0235294, 0.356863, 0.0352941, 0.756863 )
+scale = Vector2( 0.24, 0.17 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="water_icon" type="Sprite" parent="water_board"]
+position = Vector2( 164.488, 60.7527 )
+scale = Vector2( 0.303737, 0.314324 )
+texture = ExtResource( 10 )
+
+[node name="Control" type="Control" parent="water_board"]
+margin_left = -0.544525
+margin_top = 9.42628
+margin_right = 190.455
+margin_bottom = 106.426
+
+[node name="Label" type="Label" parent="water_board/Control"]
+margin_left = 13.9401
+margin_top = 6.44527
+margin_right = 152.94
+margin_bottom = 75.4453
+custom_fonts/font = SubResource( 2 )
+text = "250"
+
+[node name="water_fragments" type="Node2D" parent="."]
+
+[node name="water_generator" type="Position2D" parent="water_fragments"]
+script = ExtResource( 11 )
+
+[node name="water_gen_timer" type="Timer" parent="water_fragments/water_generator"]
+wait_time = 6.0
+autostart = true
+[connection signal="timeout" from="deforesters/deforester_generator/deforester_timer" to="deforesters/deforester_generator" method="_on_deforester_timer_timeout"]
+[connection signal="timeout" from="water_fragments/water_generator/water_gen_timer" to="water_fragments/water_generator" method="_on_water_gen_timer_timeout"]
