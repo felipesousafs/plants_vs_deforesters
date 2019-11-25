@@ -42,6 +42,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="bg_forest" type="Sprite" parent="."]
+position = Vector2( -16, 0 )
 scale = Vector2( 2.8, 2.8 )
 texture = ExtResource( 4 )
 centered = false
