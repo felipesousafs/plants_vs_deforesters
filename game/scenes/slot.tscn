@@ -18,3 +18,7 @@ script = ExtResource( 2 )
 [node name="slot_colision_shape" type="CollisionShape2D" parent="slot_area"]
 position = Vector2( 50.041, 50.5167 )
 shape = SubResource( 1 )
+
+[node name="countdown" type="Timer" parent="slot_area"]
+wait_time = 5.0
+[connection signal="timeout" from="slot_area/countdown" to="slot_area" method="_on_countdown_timeout"]

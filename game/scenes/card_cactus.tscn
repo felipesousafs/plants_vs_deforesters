@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/ui/card_cactus_clicked.png" type="Texture" id=3]
 [ext_resource path="res://scripts/cactus_card_area.gd" type="Script" id=4]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
@@ -13,7 +13,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32.0475, 46.4719 )
 
 [node name="card_cactus" type="Node2D"]
@@ -24,8 +24,8 @@ texture = ExtResource( 2 )
 centered = false
 
 [node name="card_anim" type="AnimatedSprite" parent="card"]
-frames = SubResource( 2 )
-speed_scale = 0.5
+frames = SubResource( 1 )
+speed_scale = 0.7
 centered = false
 
 [node name="cactus_card_area" type="Area2D" parent="."]
@@ -33,4 +33,4 @@ script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cactus_card_area"]
 position = Vector2( 35.77, 49.0127 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )

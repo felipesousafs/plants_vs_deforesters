@@ -16,6 +16,9 @@ func _input_event(viewport, event, shape_idx):
         self.on_click()
 		
 func on_click():
-	scene.card_selected = !scene.card_selected
+	if scene.card_selected:
+		scene.card_selected = null
+	else:
+		scene.card_selected  = "cactus"
 	print(cactus.instance().COST)
 	print(scene.water)

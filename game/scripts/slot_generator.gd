@@ -8,4 +8,5 @@ func _ready():
 		for j in range(10):
 			var novo_slot = slot.instance()
 			novo_slot.position = (Vector2(j*100, (i*100)+100))
+			#novo_slot.light_mask
 			game_scene.call_deferred("add_child", novo_slot)

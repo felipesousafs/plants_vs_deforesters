@@ -8,7 +8,7 @@ func _ready():
 
 
 func _process(delta):
-	if scene.card_selected:
+	if scene.card_selected == "cactus":
 		card_anim.play()
 	else:
 		card_anim.stop()

@@ -1,18 +1,39 @@
 extends Area2D
 
 onready var scene = get_tree().get_current_scene()
-var has_cactus = false
+onready var countdown = get_node("countdown")
+var free_flag = 0
+var has_hot_cloud = false
+var has_cold_cloud = false
 
 func _ready():
-	pass # Replace with function body.
-	
+	pass
+
 func _input_event(viewport, event, shape_idx):
     if event.is_action_pressed("touch") && scene.card_selected:
         self.on_click()
 
 func on_click():
-	print(owner.position)
-	if has_cactus == false:
-		scene.add_cactus(owner.position)
-		has_cactus = true
-		scene.card_selected = !scene.card_selected
+	print(scene.card_selected)
+	if free_flag < 2:
+		if scene.card_selected == "cactus":
+			scene.add_cactus(owner.position)
+			free_flag = 2
+			scene.card_selected = null
+		if scene.card_selected == "cloud_hot":
+			scene.add_cloud_hot(owner.position)
+			free_flag += 1
+			scene.card_selected = null
+			has_hot_cloud = true
+			if has_cold_cloud && has_hot_cloud:
+				countdown.start()
+		if scene.card_selected == "cloud_cold":
+			scene.add_cloud_cold(owner.position)
+			free_flag += 1
+			scene.card_selected = null
+			has_cold_cloud = true
+			if has_cold_cloud && has_hot_cloud:
+				countdown.start()
+
+func _on_countdown_timeout():
+	scene.add_water()
