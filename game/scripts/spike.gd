@@ -9,7 +9,6 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
-	if cena.estado == cena.JOGANDO:
-		position = position + Vector2(120 * delta, 0)
+	position = position + Vector2(120 * delta, 0)
 	if position.x > 1000:
 		queue_free()

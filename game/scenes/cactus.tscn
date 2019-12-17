@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/cactus.gd" type="Script" id=1]
 [ext_resource path="res://assets/plants/cactus_3.png" type="Texture" id=2]
@@ -16,6 +16,9 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 19.7018, 40.0101 )
 
 [node name="cactus" type="Node2D"]
 z_index = 4
@@ -35,5 +38,11 @@ script = ExtResource( 8 )
 [node name="attack_timer" type="Timer" parent="spike_generator"]
 wait_time = 2.0
 autostart = true
+
+[node name="cactus_area" type="Area2D" parent="."]
+
+[node name="cactus_collision" type="CollisionShape2D" parent="cactus_area"]
+position = Vector2( 47.9739, 49.8153 )
+shape = SubResource( 2 )
 [connection signal="animation_finished" from="cactus_sprite/cactus_attack_anim" to="." method="_on_cactus_attack_anim_animation_finished"]
 [connection signal="timeout" from="spike_generator/attack_timer" to="." method="_on_attack_timer_timeout"]

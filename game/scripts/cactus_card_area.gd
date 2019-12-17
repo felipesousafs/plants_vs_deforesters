@@ -3,6 +3,7 @@ extends Area2D
 onready var scene = get_tree().get_current_scene()
 onready var cactus = preload("res://scenes/cactus.tscn")
 
+
 func _ready():
 	#set_process(true)
 	pass

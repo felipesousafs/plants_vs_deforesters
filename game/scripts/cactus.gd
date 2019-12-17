@@ -22,3 +22,4 @@ func _on_cactus_attack_anim_animation_finished():
 	spike_generator.create_spike()
 	cactus_anim.stop()
 	attack_timer.start()
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/slot_generator.gd" type="Script" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://scripts/hot_generator.gd" type="Script" id=13]
 [ext_resource path="res://scripts/cold_generator.gd" type="Script" id=14]
 [ext_resource path="res://scripts/water_generator.gd" type="Script" id=15]
+[ext_resource path="res://assets/ui/loser_panel.png" type="Texture" id=16]
+[ext_resource path="res://assets/ui/image10.png" type="Texture" id=17]
+[ext_resource path="res://scripts/btn_restart_area.gd" type="Script" id=18]
 
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
@@ -26,6 +29,12 @@ outline_size = 3
 outline_color = Color( 0, 0.623529, 1, 1 )
 use_filter = true
 font_data = SubResource( 1 )
+
+[sub_resource type="SegmentShape2D" id=3]
+b = Vector2( 0, 620 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 110.327, 108.55 )
 
 [node name="game" type="Node2D"]
 script = ExtResource( 1 )
@@ -46,7 +55,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="bg_forest" type="Sprite" parent="."]
-position = Vector2( -16, 0 )
+position = Vector2( -15.3366, -0.663391 )
 scale = Vector2( 2.8, 2.8 )
 texture = ExtResource( 4 )
 centered = false
@@ -141,5 +150,35 @@ script = ExtResource( 15 )
 [node name="water_gen_timer" type="Timer" parent="water_fragments/water_generator"]
 wait_time = 9.0
 autostart = true
+
+[node name="limit_line" type="Area2D" parent="."]
+position = Vector2( -12, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limit_line"]
+position = Vector2( -56.8932, -3.8635 )
+shape = SubResource( 3 )
+
+[node name="loser_panel" type="Node2D" parent="."]
+visible = false
+z_index = 20
+
+[node name="loser_panel_sprite" type="Sprite" parent="loser_panel"]
+position = Vector2( 323.68, 147.56 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+centered = false
+
+[node name="btn_restart" type="Sprite" parent="loser_panel/loser_panel_sprite"]
+position = Vector2( 507.313, 615.41 )
+texture = ExtResource( 17 )
+centered = false
+
+[node name="btn_restart_area" type="Area2D" parent="loser_panel/loser_panel_sprite/btn_restart"]
+script = ExtResource( 18 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="loser_panel/loser_panel_sprite/btn_restart/btn_restart_area"]
+position = Vector2( 127.354, 124.217 )
+shape = SubResource( 4 )
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_timer" to="deforesters/deforester_generator" method="_on_deforester_timer_timeout"]
 [connection signal="timeout" from="water_fragments/water_generator/water_gen_timer" to="water_fragments/water_generator" method="_on_water_gen_timer_timeout"]
+[connection signal="area_entered" from="limit_line" to="." method="_on_limit_line_area_entered"]

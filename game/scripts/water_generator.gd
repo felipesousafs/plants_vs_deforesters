@@ -1,6 +1,7 @@
 extends Position2D
 
 onready var water = preload("res://scenes/water_fragment.tscn")
+onready var scene = get_tree().get_current_scene()
 
 func _ready():
 	randomize()
@@ -11,4 +12,5 @@ func create_water():
 	owner.add_child(new_water)
 
 func _on_water_gen_timer_timeout():
-	create_water()
+	if scene.estado == scene.JOGANDO:
+		create_water()
