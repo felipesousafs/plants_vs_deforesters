@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/coconut_tree.gd" type="Script" id=1]
+[ext_resource path="res://assets/plants/coconut_3.png" type="Texture" id=2]
+[ext_resource path="res://assets/plants/coconut_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/plants/coconut_1.png" type="Texture" id=4]
+[ext_resource path="res://assets/plants/coconut_5.png" type="Texture" id=5]
+[ext_resource path="res://assets/plants/coconut_4.png" type="Texture" id=6]
+[ext_resource path="res://scripts/coco_generator.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24.795, 40.4669 )
+
+[node name="coconut_tree" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="coconut_sprite" type="Sprite" parent="."]
+
+[node name="coconut_anim" type="AnimatedSprite" parent="coconut_sprite"]
+frames = SubResource( 1 )
+speed_scale = 2.0
+centered = false
+
+[node name="coco_generator" type="Position2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="attack_timer" type="Timer" parent="coco_generator"]
+wait_time = 2.5
+autostart = true
+
+[node name="coconut_area" type="Area2D" parent="."]
+
+[node name="coconut_collision" type="CollisionShape2D" parent="coconut_area"]
+position = Vector2( 42.1047, 56.4045 )
+shape = SubResource( 2 )
+[connection signal="animation_finished" from="coconut_sprite/coconut_anim" to="." method="_on_coconut_anim_animation_finished"]
+[connection signal="timeout" from="coco_generator/attack_timer" to="." method="_on_attack_timer_timeout"]

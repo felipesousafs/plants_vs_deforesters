@@ -20,6 +20,10 @@ func on_click():
 			scene.add_cactus(owner.position)
 			free_flag = 2
 			scene.card_selected = null
+		if scene.card_selected == "coconut_tree":
+			scene.add_coconut_tree(owner.position)
+			free_flag = 2
+			scene.card_selected = null
 		if scene.card_selected == "cloud_hot":
 			scene.add_cloud_hot(owner.position)
 			free_flag += 1

@@ -4,6 +4,7 @@ extends Node2D
 onready var cena = get_tree().get_current_scene()
 
 var damage = 30
+const kind = "projetile"
 
 func _ready():
 	set_process(true)

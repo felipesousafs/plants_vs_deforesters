@@ -12,7 +12,9 @@ const ATTACKING = 2
 
 const DAMAGE = 25
 
-var cactus = null
+var plant = null
+const plant_list = ["cactus_area", "coconut_area"]
+const projetile_list = ["spike_area", "coco_area"]
 
 func _ready():
 	set_process(true)
@@ -29,12 +31,12 @@ func _process(delta):
 
 
 func _on_deforester_area_area_entered(area):
-	if area.name == "spike_area":
+	if projetile_list.has(area.name):
 		area.owner.queue_free()
 		self.life -= area.owner.damage
-	if area.name == "cactus_area":
+	if plant_list.has(area.name):
 		print("CACTUS AREA")
-		self.cactus = area.get_parent()
+		self.plant = area.get_parent()
 		self.status = ATTACKING
 		run_anim.visible = false
 		attack_anim.visible = true
@@ -42,9 +44,9 @@ func _on_deforester_area_area_entered(area):
 
 
 func _on_attack_animation_finished():
-	self.cactus.life -= self.DAMAGE
-	if self.cactus.life <= 0:
-		self.cactus.queue_free()
+	self.plant.life -= self.DAMAGE
+	if self.plant.life <= 0:
+		self.plant.queue_free()
 		attack_anim.stop()
 		run_anim.visible = true
 		attack_anim.visible = false
