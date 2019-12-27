@@ -1,26 +1,27 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/slot_generator.gd" type="Script" id=2]
 [ext_resource path="res://scripts/deforester_generator.gd" type="Script" id=3]
 [ext_resource path="res://assets/map/bg_forest.png" type="Texture" id=4]
-[ext_resource path="res://scenes/cactus.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scripts/cactuses_generator.gd" type="Script" id=6]
-[ext_resource path="res://assets/ui/card_slot_2.png" type="Texture" id=7]
-[ext_resource path="res://scenes/card_cactus.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/card_coconut.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/cloud_hot_slot.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/cloud_cold_slot.tscn" type="PackedScene" id=11]
-[ext_resource path="res://assets/ui/table.png" type="Texture" id=12]
-[ext_resource path="res://assets/ui/water.png" type="Texture" id=13]
-[ext_resource path="res://scripts/hot_generator.gd" type="Script" id=14]
-[ext_resource path="res://scripts/cold_generator.gd" type="Script" id=15]
-[ext_resource path="res://scripts/water_generator.gd" type="Script" id=16]
-[ext_resource path="res://assets/ui/loser_panel.png" type="Texture" id=17]
-[ext_resource path="res://assets/ui/image10.png" type="Texture" id=18]
-[ext_resource path="res://scripts/btn_restart_area.gd" type="Script" id=19]
-[ext_resource path="res://scenes/coconut_tree.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scripts/coconut_generator.gd" type="Script" id=21]
+[ext_resource path="res://scripts/cactuses_generator.gd" type="Script" id=5]
+[ext_resource path="res://assets/ui/card_slot_2.png" type="Texture" id=6]
+[ext_resource path="res://scenes/card_cactus.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/card_coconut.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/cloud_hot_slot.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/cloud_cold_slot.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/ui/table.png" type="Texture" id=11]
+[ext_resource path="res://assets/ui/water.png" type="Texture" id=12]
+[ext_resource path="res://scripts/hot_generator.gd" type="Script" id=13]
+[ext_resource path="res://scripts/cold_generator.gd" type="Script" id=14]
+[ext_resource path="res://scripts/water_generator.gd" type="Script" id=15]
+[ext_resource path="res://assets/ui/loser_panel.png" type="Texture" id=16]
+[ext_resource path="res://assets/ui/image10.png" type="Texture" id=17]
+[ext_resource path="res://scripts/btn_restart_area.gd" type="Script" id=18]
+[ext_resource path="res://scripts/coconut_generator.gd" type="Script" id=19]
+[ext_resource path="res://scenes/helper.tscn" type="PackedScene" id=20]
+[ext_resource path="res://assets/ui/btn_help.png" type="Texture" id=21]
+[ext_resource path="res://assets/ui/deforesters_killed.png" type="Texture" id=22]
 
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
@@ -49,6 +50,7 @@ editor/display_folded = true
 script = ExtResource( 2 )
 
 [node name="deforesters" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="deforester_generator" type="Position2D" parent="deforesters"]
 script = ExtResource( 3 )
@@ -61,75 +63,77 @@ autostart = true
 wait_time = 15.0
 autostart = true
 
+[node name="tractors" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="tractor_generator" type="Position2D" parent="tractors"]
+
 [node name="bg_forest" type="Sprite" parent="."]
 position = Vector2( -15.3366, -0.663391 )
 scale = Vector2( 2.8, 2.8 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="cactus" parent="." instance=ExtResource( 5 )]
-position = Vector2( 0, 200 )
-
 [node name="cactuses" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="cactuses_generator" type="Position2D" parent="cactuses"]
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 
 [node name="card_slots" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( 200, 0 )
 
 [node name="card_slot_1" type="Sprite" parent="card_slots"]
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 centered = false
 
-[node name="card_cactus" parent="card_slots/card_slot_1" instance=ExtResource( 8 )]
+[node name="card_cactus" parent="card_slots/card_slot_1" instance=ExtResource( 7 )]
 
 [node name="card_slot_4" type="Sprite" parent="card_slots"]
 position = Vector2( 74, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 centered = false
 
-[node name="card_coconut" parent="card_slots/card_slot_4" instance=ExtResource( 9 )]
+[node name="card_coconut" parent="card_slots/card_slot_4" instance=ExtResource( 8 )]
 
 [node name="card_slot_2" type="Sprite" parent="card_slots"]
 position = Vector2( 148, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 centered = false
 
-[node name="cloud_hot_slot" parent="card_slots/card_slot_2" instance=ExtResource( 10 )]
+[node name="cloud_hot_slot" parent="card_slots/card_slot_2" instance=ExtResource( 9 )]
 
 [node name="card_slot_3" type="Sprite" parent="card_slots"]
 position = Vector2( 222, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 centered = false
 
-[node name="cloud_cold_slot" parent="card_slots/card_slot_3" instance=ExtResource( 11 )]
+[node name="cloud_cold_slot" parent="card_slots/card_slot_3" instance=ExtResource( 10 )]
 
 [node name="card_slot_5" type="Sprite" parent="card_slots"]
 position = Vector2( 296, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 centered = false
 
 [node name="card_slot_6" type="Sprite" parent="card_slots"]
 position = Vector2( 370, 0 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 centered = false
 
 [node name="water_board" type="Node2D" parent="."]
-editor/display_folded = true
 z_index = 4
 
 [node name="bg" type="Sprite" parent="water_board"]
 self_modulate = Color( 0.0235294, 0.356863, 0.0352941, 0.756863 )
 scale = Vector2( 0.24, 0.17 )
-texture = ExtResource( 12 )
+texture = ExtResource( 11 )
 centered = false
 
 [node name="water_icon" type="Sprite" parent="water_board"]
 position = Vector2( 164.488, 60.7527 )
 scale = Vector2( 0.303737, 0.314324 )
-texture = ExtResource( 13 )
+texture = ExtResource( 12 )
 
 [node name="Control" type="Control" parent="water_board"]
 margin_left = -0.544525
@@ -143,25 +147,25 @@ margin_top = 6.44527
 margin_right = 152.94
 margin_bottom = 75.4453
 custom_fonts/font = SubResource( 2 )
-text = "150"
+text = "300"
 
 [node name="clouds" type="Node2D" parent="."]
 editor/display_folded = true
 
 [node name="hot_generator" type="Position2D" parent="clouds"]
-script = ExtResource( 14 )
+script = ExtResource( 13 )
 
 [node name="cold_generator" type="Position2D" parent="clouds"]
-script = ExtResource( 15 )
+script = ExtResource( 14 )
 
 [node name="water_fragments" type="Node2D" parent="."]
 editor/display_folded = true
 
 [node name="water_generator" type="Position2D" parent="water_fragments"]
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 
 [node name="water_gen_timer" type="Timer" parent="water_fragments/water_generator"]
-wait_time = 9.0
+wait_time = 10.0
 autostart = true
 
 [node name="limit_line" type="Area2D" parent="."]
@@ -180,32 +184,68 @@ z_index = 20
 [node name="loser_panel_sprite" type="Sprite" parent="loser_panel"]
 position = Vector2( 323.68, 147.56 )
 scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 17 )
+texture = ExtResource( 16 )
 centered = false
 
 [node name="btn_restart" type="Sprite" parent="loser_panel/loser_panel_sprite"]
 position = Vector2( 507.313, 615.41 )
-texture = ExtResource( 18 )
+texture = ExtResource( 17 )
 centered = false
 
 [node name="btn_restart_area" type="Area2D" parent="loser_panel/loser_panel_sprite/btn_restart"]
-script = ExtResource( 19 )
+script = ExtResource( 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="loser_panel/loser_panel_sprite/btn_restart/btn_restart_area"]
 position = Vector2( 127.354, 124.217 )
 shape = SubResource( 4 )
 
-[node name="coconut_tree" parent="." instance=ExtResource( 20 )]
-position = Vector2( 0, 300 )
-z_index = 4
-
 [node name="coconut_trees" type="Node2D" parent="."]
 
 [node name="coconut_generator" type="Position2D" parent="coconut_trees"]
-script = ExtResource( 21 )
+script = ExtResource( 19 )
 
 [node name="game_timer" type="Timer" parent="."]
+autostart = true
+
+[node name="helper" parent="." instance=ExtResource( 20 )]
+visible = false
+
+[node name="btn_help" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.4 )
+
+[node name="Button" type="Button" parent="btn_help"]
+margin_left = 1777.89
+margin_top = 19.7691
+margin_right = 2003.89
+margin_bottom = 240.769
+icon = ExtResource( 21 )
+
+[node name="deforesters_killed_board" type="Node2D" parent="."]
+
+[node name="deforesters_killed" type="Sprite" parent="deforesters_killed_board"]
+position = Vector2( 763.218, 49.6472 )
+scale = Vector2( 0.940098, 1.3768 )
+texture = ExtResource( 22 )
+
+[node name="deforesters_killed_ctrl" type="Control" parent="deforesters_killed_board"]
+margin_left = -0.544525
+margin_top = 9.42628
+margin_right = 190.455
+margin_bottom = 106.426
+
+[node name="deforesters_killed_label" type="Label" parent="deforesters_killed_board/deforesters_killed_ctrl"]
+margin_left = 674.025
+margin_top = 30.0493
+margin_right = 860.025
+margin_bottom = 91.0493
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_timer" to="deforesters/deforester_generator" method="_on_deforester_timer_timeout"]
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_hord_timer" to="deforesters/deforester_generator" method="_on_deforester_hord_timer_timeout"]
 [connection signal="timeout" from="water_fragments/water_generator/water_gen_timer" to="water_fragments/water_generator" method="_on_water_gen_timer_timeout"]
 [connection signal="area_entered" from="limit_line" to="." method="_on_limit_line_area_entered"]
+[connection signal="timeout" from="game_timer" to="." method="_on_game_timer_timeout"]
+[connection signal="pressed" from="btn_help/Button" to="." method="_on_Button_pressed"]

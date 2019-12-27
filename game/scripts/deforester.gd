@@ -22,12 +22,12 @@ func _ready():
 func _process(delta):
 	if scene.estado == scene.JOGANDO && life >= 0 && status == RUNNING:
 		position = position + Vector2(-40 * delta, 0)
-		#if position.x < 500 && times == 0 && jump:
-			#times = 1
-			#print(position.x)
-			#jumpAnim.play("ladrao_jump")
-	if position.x < -100 || life < 0:
+	if position.x < -100:
 		queue_free()
+	if life < 0:
+		scene.deforesters_count += 1
+		queue_free()
+		scene.deforesters_killed_label.set_text(str(scene.deforesters_count))
 
 
 func _on_deforester_area_area_entered(area):

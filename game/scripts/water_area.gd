@@ -10,6 +10,6 @@ func _input_event(viewport, event, shape_idx):
         self.on_click()
 		
 func on_click():
-	scene.add_water_counter(50)
+	scene.add_water_counter(25)
 	print(scene.water)
 	owner.queue_free()

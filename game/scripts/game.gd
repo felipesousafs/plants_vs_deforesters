@@ -8,28 +8,36 @@ onready var water_generator = get_node("water_fragments/water_generator")
 onready var water_count = get_node("water_board/Control/Label")
 onready var water_fragment = preload("res://scenes/water_fragment.tscn")
 onready var loser_panel_node = get_node("loser_panel")
+onready var dicas_panel_node = get_node("helper")
+onready var deforesters_killed_label = get_node("deforesters_killed_board/deforesters_killed_ctrl/deforesters_killed_label")
 
 var time_start = 0
 var time_now = 0
 var elapsed = 0
+var deforesters_count = 0
 
 var estado = 1
 var card_selected = null
 
 const JOGANDO = 1
 const PERDENDO = 2
+const PAUSADO = 3
+const VENCEU = 4
 
 
-var water = 150
+var water = 300
 
 func _ready():
-	time_start = OS.get_unix_time()
 	water_count.set_text(str(water))
 	set_process(true)
 	
 func _process(delta):
-	time_now = OS.get_unix_time()
-	elapsed = time_now - time_start
+	if estado == JOGANDO:
+		dicas_panel_node.visible = false
+		get_tree().paused = false
+	if estado == PAUSADO:
+		dicas_panel_node.visible = true
+		get_tree().paused = true
 	
 func on_restart():
 	get_tree().reload_current_scene()
@@ -61,3 +69,14 @@ func _on_limit_line_area_entered(area):
 	estado = PERDENDO
 	print("PERDEU, PLAYBOY")
 	loser_panel_node.visible = true
+
+
+func _on_Button_pressed():
+	estado = PAUSADO
+	dicas_panel_node.visible = true
+	get_tree().paused = true
+
+
+func _on_game_timer_timeout():
+	if estado == JOGANDO:
+		elapsed += 1

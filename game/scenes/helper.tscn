@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/helper.gd" type="Script" id=1]
+[ext_resource path="res://assets/ui/bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/ui/dica_menu.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/dica_chuva.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/dica_planta_mais_agua.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/btn_play.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/next.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/prew.png" type="Texture" id=8]
+
+[node name="helper" type="Node2D"]
+pause_mode = 2
+z_index = 99
+script = ExtResource( 1 )
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 511.773, 307.581 )
+scale = Vector2( 0.779154, 0.583395 )
+texture = ExtResource( 2 )
+
+[node name="dica_menu" type="Sprite" parent="."]
+visible = false
+position = Vector2( 500, 275 )
+scale = Vector2( 0.8, 0.75 )
+texture = ExtResource( 3 )
+
+[node name="dica_chuva" type="Sprite" parent="."]
+visible = false
+position = Vector2( 500, 275 )
+scale = Vector2( 0.8, 0.75 )
+texture = ExtResource( 4 )
+
+[node name="dica_planta_mais_agua" type="Sprite" parent="."]
+visible = false
+position = Vector2( 500, 275 )
+scale = Vector2( 0.8, 0.75 )
+texture = ExtResource( 5 )
+
+[node name="btn_play" type="Sprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+
+[node name="play" type="Button" parent="btn_play"]
+margin_left = 1522.66
+margin_top = 1549.78
+margin_right = 1748.66
+margin_bottom = 1770.78
+icon = ExtResource( 6 )
+
+[node name="btn_next" type="Sprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+
+[node name="next" type="Button" parent="btn_next"]
+margin_left = 2477.95
+margin_top = 1076.34
+margin_right = 2703.95
+margin_bottom = 1297.34
+icon = ExtResource( 7 )
+
+[node name="btn_prev" type="Sprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+
+[node name="prev" type="Button" parent="btn_prev"]
+margin_left = 608.811
+margin_top = 1073.05
+margin_right = 834.811
+margin_bottom = 1294.05
+icon = ExtResource( 8 )
+[connection signal="pressed" from="btn_play/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="btn_next/next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="btn_prev/prev" to="." method="_on_prev_pressed"]
