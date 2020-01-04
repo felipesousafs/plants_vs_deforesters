@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/footsteps_3_left.wav-39a74b239d69ddd883ec473c742b81ea.sample"
+
+[deps]
+
+source_file="res://assets/sounds/footsteps_3_left.wav"
+dest_files=[ "res://.import/footsteps_3_left.wav-39a74b239d69ddd883ec473c742b81ea.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=true
+edit/loop=true
+compress/mode=0

@@ -2,7 +2,7 @@ extends Node2D
 
 onready var scene = get_tree().get_current_scene()
 
-var life = 300
+var life = 350
 
 const DAMAGE = 999
 

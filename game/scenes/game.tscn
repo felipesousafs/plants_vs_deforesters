@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/slot_generator.gd" type="Script" id=2]
@@ -22,6 +22,12 @@
 [ext_resource path="res://scenes/helper.tscn" type="PackedScene" id=20]
 [ext_resource path="res://assets/ui/btn_help.png" type="Texture" id=21]
 [ext_resource path="res://assets/ui/deforesters_killed.png" type="Texture" id=22]
+[ext_resource path="res://scripts/bg_sounds.gd" type="Script" id=23]
+[ext_resource path="res://assets/sounds/bg_frogs_jungle.wav" type="AudioStream" id=24]
+[ext_resource path="res://assets/sounds/bird_1.wav" type="AudioStream" id=25]
+[ext_resource path="res://assets/sounds/CICADA3.wav" type="AudioStream" id=26]
+[ext_resource path="res://assets/sounds/hit_projetil_2.wav" type="AudioStream" id=27]
+[ext_resource path="res://assets/sounds/hit_projetil_1.wav" type="AudioStream" id=28]
 
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
@@ -50,17 +56,16 @@ editor/display_folded = true
 script = ExtResource( 2 )
 
 [node name="deforesters" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="deforester_generator" type="Position2D" parent="deforesters"]
 script = ExtResource( 3 )
 
 [node name="deforester_timer" type="Timer" parent="deforesters/deforester_generator"]
-wait_time = 6.0
+wait_time = 7.0
 autostart = true
 
 [node name="deforester_hord_timer" type="Timer" parent="deforesters/deforester_generator"]
-wait_time = 15.0
+wait_time = 20.0
 autostart = true
 
 [node name="tractors" type="Node2D" parent="."]
@@ -122,6 +127,7 @@ texture = ExtResource( 6 )
 centered = false
 
 [node name="water_board" type="Node2D" parent="."]
+editor/display_folded = true
 z_index = 4
 
 [node name="bg" type="Sprite" parent="water_board"]
@@ -200,6 +206,7 @@ position = Vector2( 127.354, 124.217 )
 shape = SubResource( 4 )
 
 [node name="coconut_trees" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="coconut_generator" type="Position2D" parent="coconut_trees"]
 script = ExtResource( 19 )
@@ -211,6 +218,7 @@ autostart = true
 visible = false
 
 [node name="btn_help" type="Sprite" parent="."]
+editor/display_folded = true
 scale = Vector2( 0.5, 0.4 )
 
 [node name="Button" type="Button" parent="btn_help"]
@@ -221,6 +229,7 @@ margin_bottom = 240.769
 icon = ExtResource( 21 )
 
 [node name="deforesters_killed_board" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="deforesters_killed" type="Sprite" parent="deforesters_killed_board"]
 position = Vector2( 763.218, 49.6472 )
@@ -243,9 +252,45 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "0"
 align = 1
 valign = 1
+
+[node name="bg_sounds" type="Node2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 23 )
+
+[node name="bg_frogs" type="AudioStreamPlayer" parent="bg_sounds"]
+stream = ExtResource( 24 )
+volume_db = -10.165
+autoplay = true
+
+[node name="bird_1_timer" type="Timer" parent="bg_sounds"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="bird_sound" type="AudioStreamPlayer" parent="bg_sounds"]
+stream = ExtResource( 25 )
+
+[node name="cicada_timer" type="Timer" parent="bg_sounds"]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="cicada" type="AudioStreamPlayer" parent="bg_sounds"]
+stream = ExtResource( 26 )
+volume_db = -5.474
+
+[node name="coco_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+volume_db = -6.0
+
+[node name="spike_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+volume_db = -15.0
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_timer" to="deforesters/deforester_generator" method="_on_deforester_timer_timeout"]
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_hord_timer" to="deforesters/deforester_generator" method="_on_deforester_hord_timer_timeout"]
 [connection signal="timeout" from="water_fragments/water_generator/water_gen_timer" to="water_fragments/water_generator" method="_on_water_gen_timer_timeout"]
 [connection signal="area_entered" from="limit_line" to="." method="_on_limit_line_area_entered"]
 [connection signal="timeout" from="game_timer" to="." method="_on_game_timer_timeout"]
 [connection signal="pressed" from="btn_help/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="bg_sounds/bird_1_timer" to="bg_sounds" method="_on_bird_1_timer_timeout"]
+[connection signal="timeout" from="bg_sounds/cicada_timer" to="bg_sounds" method="_on_cicada_timer_timeout"]

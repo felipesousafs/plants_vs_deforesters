@@ -15,6 +15,7 @@ var time_start = 0
 var time_now = 0
 var elapsed = 0
 var deforesters_count = 0
+var cloud_counter = 0
 
 var estado = 1
 var card_selected = null
@@ -24,6 +25,7 @@ const PERDENDO = 2
 const PAUSADO = 3
 const VENCEU = 4
 
+var inundacao = 0
 
 var water = 300
 
@@ -50,9 +52,11 @@ func add_coconut_tree(pos):
 
 # TODO: se colocar muitas nuvens, gerar chuva em excesso e causar inundação
 func add_cloud_hot(pos):
+	cloud_counter += 1
 	hot_generator.add_cloud(pos)
 
 func add_cloud_cold(pos):
+	cloud_counter += 1
 	cold_generator.add_cloud(pos)
 
 func add_water_counter(value):
