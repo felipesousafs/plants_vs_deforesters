@@ -45,7 +45,6 @@ func _on_deforester_area_area_entered(area):
 		area.owner.queue_free()
 		self.life -= area.owner.damage
 	if plant_list.has(area.name):
-		print("CACTUS AREA")
 		self.plant = area.get_parent()
 		self.status = ATTACKING
 		hit_sfx.play()

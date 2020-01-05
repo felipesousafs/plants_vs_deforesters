@@ -26,10 +26,12 @@ func create_tractor():
 	owner.add_child(new_tractor)
 
 func _on_deforester_hord_timer_timeout():
-	for i in range(scene.elapsed / 20):
+	for i in range((scene.elapsed / 30) * 2.5):
 		create_deforester()
-	for j in range((scene.elapsed / 60) * 1.5):
+	for j in range((scene.elapsed / 60) * 4.5):
+		create_deforester()
 		create_deforester()
 	for j in range((scene.elapsed / 80) * 1.5):
-		print("Trator criado")
 		create_tractor()
+		create_deforester()
+		create_deforester()

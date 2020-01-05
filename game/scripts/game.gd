@@ -10,6 +10,11 @@ onready var water_fragment = preload("res://scenes/water_fragment.tscn")
 onready var loser_panel_node = get_node("loser_panel")
 onready var dicas_panel_node = get_node("helper")
 onready var deforesters_killed_label = get_node("deforesters_killed_board/deforesters_killed_ctrl/deforesters_killed_label")
+onready var storm = preload("res://scenes/storm.tscn")
+onready var inundation_timer = get_node("inundation/inundation_timer")
+onready var thunder_timer = get_node("inundation/thunder_timer")
+onready var thunderstorm = get_node("inundation/thunderstorm")
+var rng = RandomNumberGenerator.new()
 
 var time_start = 0
 var time_now = 0
@@ -24,8 +29,7 @@ const JOGANDO = 1
 const PERDENDO = 2
 const PAUSADO = 3
 const VENCEU = 4
-
-var inundacao = 0
+const cloud_counter_limit = 5
 
 var water = 300
 
@@ -52,11 +56,9 @@ func add_coconut_tree(pos):
 
 # TODO: se colocar muitas nuvens, gerar chuva em excesso e causar inundação
 func add_cloud_hot(pos):
-	cloud_counter += 1
 	hot_generator.add_cloud(pos)
 
 func add_cloud_cold(pos):
-	cloud_counter += 1
 	cold_generator.add_cloud(pos)
 
 func add_water_counter(value):
@@ -84,3 +86,18 @@ func _on_Button_pressed():
 func _on_game_timer_timeout():
 	if estado == JOGANDO:
 		elapsed += 1
+
+func inundation():
+	thunderstorm.play()
+	thunder_timer.start()
+
+func _on_inundation_timer_timeout():
+	inundation()
+
+
+func _on_thunder_timer_timeout():
+	rng.randomize()
+	var new_storm = storm.instance()
+	new_storm.position = (Vector2(rng.randi_range(0,4)*100, 1))
+	add_child(new_storm)
+	inundation_timer.start()

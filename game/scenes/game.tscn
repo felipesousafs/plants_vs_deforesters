@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/slot_generator.gd" type="Script" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://assets/sounds/CICADA3.wav" type="AudioStream" id=26]
 [ext_resource path="res://assets/sounds/hit_projetil_2.wav" type="AudioStream" id=27]
 [ext_resource path="res://assets/sounds/hit_projetil_1.wav" type="AudioStream" id=28]
+[ext_resource path="res://assets/sounds/thunderstorm_1.wav" type="AudioStream" id=29]
 
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
@@ -61,11 +62,11 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="deforester_timer" type="Timer" parent="deforesters/deforester_generator"]
-wait_time = 7.0
+wait_time = 8.0
 autostart = true
 
 [node name="deforester_hord_timer" type="Timer" parent="deforesters/deforester_generator"]
-wait_time = 20.0
+wait_time = 40.0
 autostart = true
 
 [node name="tractors" type="Node2D" parent="."]
@@ -88,6 +89,7 @@ script = ExtResource( 5 )
 [node name="card_slots" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( 200, 0 )
+z_index = 4
 
 [node name="card_slot_1" type="Sprite" parent="card_slots"]
 texture = ExtResource( 6 )
@@ -165,7 +167,6 @@ script = ExtResource( 13 )
 script = ExtResource( 14 )
 
 [node name="water_fragments" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="water_generator" type="Position2D" parent="water_fragments"]
 script = ExtResource( 15 )
@@ -229,7 +230,7 @@ margin_bottom = 240.769
 icon = ExtResource( 21 )
 
 [node name="deforesters_killed_board" type="Node2D" parent="."]
-editor/display_folded = true
+z_index = 4
 
 [node name="deforesters_killed" type="Sprite" parent="deforesters_killed_board"]
 position = Vector2( 763.218, 49.6472 )
@@ -286,6 +287,20 @@ volume_db = -6.0
 [node name="spike_hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 28 )
 volume_db = -15.0
+
+[node name="inundation" type="Node2D" parent="."]
+
+[node name="inundation_timer" type="Timer" parent="inundation"]
+wait_time = 60.0
+one_shot = true
+
+[node name="thunder_timer" type="Timer" parent="inundation"]
+wait_time = 3.5
+one_shot = true
+
+[node name="thunderstorm" type="AudioStreamPlayer" parent="inundation"]
+stream = ExtResource( 29 )
+volume_db = -10.685
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_timer" to="deforesters/deforester_generator" method="_on_deforester_timer_timeout"]
 [connection signal="timeout" from="deforesters/deforester_generator/deforester_hord_timer" to="deforesters/deforester_generator" method="_on_deforester_hord_timer_timeout"]
 [connection signal="timeout" from="water_fragments/water_generator/water_gen_timer" to="water_fragments/water_generator" method="_on_water_gen_timer_timeout"]
@@ -294,3 +309,5 @@ volume_db = -15.0
 [connection signal="pressed" from="btn_help/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="bg_sounds/bird_1_timer" to="bg_sounds" method="_on_bird_1_timer_timeout"]
 [connection signal="timeout" from="bg_sounds/cicada_timer" to="bg_sounds" method="_on_cicada_timer_timeout"]
+[connection signal="timeout" from="inundation/inundation_timer" to="." method="_on_inundation_timer_timeout"]
+[connection signal="timeout" from="inundation/thunder_timer" to="." method="_on_thunder_timer_timeout"]

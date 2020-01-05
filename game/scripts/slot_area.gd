@@ -30,6 +30,9 @@ func on_click():
 			scene.card_selected = null
 			has_hot_cloud = true
 			if has_cold_cloud && has_hot_cloud:
+				scene.cloud_counter += 1
+				if scene.cloud_counter == scene.cloud_counter_limit:
+					scene.inundation()
 				countdown.start()
 		if scene.card_selected == "cloud_cold":
 			scene.add_cloud_cold(owner.position)
@@ -37,6 +40,9 @@ func on_click():
 			scene.card_selected = null
 			has_cold_cloud = true
 			if has_cold_cloud && has_hot_cloud:
+				scene.cloud_counter += 1
+				if scene.cloud_counter == scene.cloud_counter_limit:
+					scene.inundation()
 				countdown.start()
 
 func _on_countdown_timeout():

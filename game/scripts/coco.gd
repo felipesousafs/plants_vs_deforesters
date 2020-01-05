@@ -15,5 +15,4 @@ func _process(delta):
 		queue_free()
 
 func play_hit():
-	print("hittou")
 	hit_sfx.play()
