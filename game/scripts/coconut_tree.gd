@@ -4,6 +4,7 @@ onready var coconut_anim = self.get_node("coconut_sprite/coconut_anim")
 onready var attack_timer = get_node("coco_generator/attack_timer")
 onready var coco_generator = get_node("coco_generator")
 
+var slot = null
 var life = 100
 const COST = 150
 const kind = "plant"

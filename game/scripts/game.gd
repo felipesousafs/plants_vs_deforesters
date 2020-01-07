@@ -4,7 +4,6 @@ onready var cactus_generator = get_node("cactuses/cactuses_generator")
 onready var coconut_generator = get_node("coconut_trees/coconut_generator")
 onready var hot_generator = get_node("clouds/hot_generator")
 onready var cold_generator = get_node("clouds/cold_generator")
-onready var water_generator = get_node("water_fragments/water_generator")
 onready var water_count = get_node("water_board/Control/Label")
 onready var water_fragment = preload("res://scenes/water_fragment.tscn")
 onready var loser_panel_node = get_node("loser_panel")
@@ -14,13 +13,22 @@ onready var storm = preload("res://scenes/storm.tscn")
 onready var inundation_timer = get_node("inundation/inundation_timer")
 onready var thunder_timer = get_node("inundation/thunder_timer")
 onready var thunderstorm = get_node("inundation/thunderstorm")
+onready var footsteps_sfx = get_node("deforesters/footsteps")
+#onready var hit_sfx = get_node("deforesters/hit")
+
 var rng = RandomNumberGenerator.new()
 
-var time_start = 0
-var time_now = 0
 var elapsed = 0
+
 var deforesters_count = 0
+var deforesters_created = 0
+var hord_count = 0
+var number_of_hords_to_win = 5
+
 var cloud_counter = 0
+var footstep_count = 0
+#var hit_count = 0
+
 
 var estado = 1
 var card_selected = null
@@ -44,15 +52,18 @@ func _process(delta):
 	if estado == PAUSADO:
 		dicas_panel_node.visible = true
 		get_tree().paused = true
-	
+	play_sounds()
+	if hord_count >= number_of_hords_to_win && (deforesters_created - deforesters_count) < 1:
+		you_won()
+
 func on_restart():
 	get_tree().reload_current_scene()
 
-func add_cactus(pos):
-	cactus_generator.add_cactus(pos)
+func add_cactus(pos, slot):
+	cactus_generator.add_cactus(pos, slot)
 
-func add_coconut_tree(pos):
-	coconut_generator.add_coconut(pos)
+func add_coconut_tree(pos, slot):
+	coconut_generator.add_coconut(pos, slot)
 
 # TODO: se colocar muitas nuvens, gerar chuva em excesso e causar inundação
 func add_cloud_hot(pos):
@@ -101,3 +112,36 @@ func _on_thunder_timer_timeout():
 	new_storm.position = (Vector2(rng.randi_range(0,4)*100, 1))
 	add_child(new_storm)
 	inundation_timer.start()
+
+func play(sound_name):
+	if sound_name == "footsteps":
+		footstep_count += 1
+	#elif sound_name == "hit":
+	#	hit_count += 1
+
+func stop(sound_name):
+	if sound_name == "footsteps":
+		footstep_count -= 1
+	#elif sound_name == "hit":
+	#	hit_count -= 1
+
+func play_sounds():
+	if footstep_count > 0 && deforesters_created > 0:
+		if !footsteps_sfx.playing:
+			footsteps_sfx.play()
+	else:
+		footsteps_sfx.stop()
+		
+	#if hit_count > 0 && deforesters_created > 0:
+	#	if !hit_sfx.playing:
+	#		hit_sfx.play()
+	#else:
+	#	hit_sfx.stop()
+
+func you_won():
+	print("GG WP")
+	$winner_panel.visible = true
+	get_tree().paused = true
+
+func _on_btn_play_again_pressed():
+	on_restart()

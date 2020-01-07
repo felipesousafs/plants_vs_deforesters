@@ -7,8 +7,9 @@ func _ready():
 	pass
 
 
-func add_cactus(cac_position):
+func add_cactus(cac_position, slot):
 	var new_cactus = cactus.instance()
 	new_cactus.position = cac_position
+	new_cactus.slot = slot
 	owner.add_child(new_cactus)
 	scene.add_water_counter(-new_cactus.COST)

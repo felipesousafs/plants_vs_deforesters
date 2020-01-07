@@ -17,6 +17,7 @@ func _process(delta):
 	if scene.estado == scene.JOGANDO && life >= 0:
 		position = position + Vector2(-42 * delta, 0)
 	if position.x < -100 || life < 0:
+		scene.deforesters_count += 1
 		queue_free()
 
 func _on_tractor_area_area_entered(area):
@@ -24,6 +25,5 @@ func _on_tractor_area_area_entered(area):
 		area.owner.queue_free()
 		self.life -= area.owner.damage
 	if plant_list.has(area.name):
-		print("PLANT AREA")
 		self.plant = area.get_parent()
 		self.plant.queue_free()

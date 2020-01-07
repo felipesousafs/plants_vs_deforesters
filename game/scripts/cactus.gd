@@ -4,6 +4,7 @@ onready var cactus_anim = self.get_node("cactus_sprite/cactus_attack_anim")
 onready var attack_timer = get_node("spike_generator/attack_timer")
 onready var spike_generator = get_node("spike_generator")
 
+var slot = null
 var life = 100
 const COST = 100
 const kind = "plant"

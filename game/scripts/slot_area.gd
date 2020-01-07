@@ -14,14 +14,13 @@ func _input_event(viewport, event, shape_idx):
         self.on_click()
 
 func on_click():
-	print(scene.card_selected)
 	if free_flag < 2:
 		if scene.card_selected == "cactus":
-			scene.add_cactus(owner.position)
+			scene.add_cactus(owner.position, self)
 			free_flag = 2
 			scene.card_selected = null
 		if scene.card_selected == "coconut_tree":
-			scene.add_coconut_tree(owner.position)
+			scene.add_coconut_tree(owner.position, self)
 			free_flag = 2
 			scene.card_selected = null
 		if scene.card_selected == "cloud_hot":
